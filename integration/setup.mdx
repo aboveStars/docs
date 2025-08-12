@@ -1,7 +1,7 @@
 ---
-title: 'Integration Setup'
-description: 'Detailed guide for integrating KoruAI into your Express.js application'
-icon: 'gear'
+title: "Integration Setup"
+description: "Detailed guide for integrating KoruAI into your Express.js application"
+icon: "gear"
 ---
 
 This guide provides comprehensive instructions for integrating KoruAI into your Express.js application, including advanced configuration options and best practices.
@@ -55,17 +55,20 @@ KORUAI_APP_ID=your-app-id-here
 ```
 
 <Warning>
-Never commit your API keys to version control. Always use environment variables or secure configuration management.
+  Never commit your API keys to version control. Always use environment
+  variables or secure configuration management.
 </Warning>
 
 ### 3. Add KoruAI Middleware
 
 ```javascript
 // Basic configuration
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+  })
+);
 ```
 
 ## Advanced Configuration
@@ -75,15 +78,18 @@ app.use(KoruAI({
 Enable real-time blocking of suspicious requests:
 
 ```javascript
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-  blockRealtime: true, // Enable real-time threat blocking
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+    blockRealtime: true, // Enable real-time threat blocking
+  })
+);
 ```
 
 <Info>
-When `blockRealtime` is enabled, KoruAI will automatically respond with a 403 status and block suspicious requests before they reach your application logic.
+  When `blockRealtime` is enabled, KoruAI will automatically respond with a 403
+  status and block suspicious requests before they reach your application logic.
 </Info>
 
 ### Conditional Integration
@@ -94,11 +100,11 @@ You might want to enable KoruAI only in production:
 const koruaiConfig = {
   apiKey: process.env.KORUAI_API_KEY,
   appId: process.env.KORUAI_APP_ID,
-  blockRealtime: process.env.NODE_ENV === 'production',
+  blockRealtime: process.env.NODE_ENV === "production",
 };
 
 // Only use KoruAI in production
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   app.use(KoruAI(koruaiConfig));
 }
 ```
@@ -120,15 +126,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Then KoruAI middleware
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+  })
+);
 
 // Your routes
-app.post('/api/users', (req, res) => {
+app.post("/api/users", (req, res) => {
   // req.body is available here
-  res.json({ message: 'User created' });
+  res.json({ message: "User created" });
 });
 ```
 
@@ -137,7 +145,7 @@ app.post('/api/users', (req, res) => {
 When using CORS, add KoruAI after CORS middleware:
 
 ```javascript
-import cors from 'cors';
+import cors from "cors";
 import KoruAI from "koruai";
 
 const app = express();
@@ -146,10 +154,12 @@ const app = express();
 app.use(cors());
 
 // Then KoruAI
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+  })
+);
 ```
 
 ### With Authentication
@@ -157,29 +167,31 @@ app.use(KoruAI({
 KoruAI works with any authentication middleware:
 
 ```javascript
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import KoruAI from "koruai";
 
 const app = express();
 
 // KoruAI monitors all requests, including unauthenticated ones
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+  })
+);
 
 // Authentication middleware
-app.use('/api/protected', (req, res, next) => {
+app.use("/api/protected", (req, res, next) => {
   // Your JWT verification logic
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ error: 'No token' });
-  
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "No token" });
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (err) {
-    res.status(401).json({ error: 'Invalid token' });
+    res.status(401).json({ error: "Invalid token" });
   }
 });
 ```
@@ -189,20 +201,23 @@ app.use('/api/protected', (req, res, next) => {
 KoruAI handles errors gracefully and won't break your application:
 
 ```javascript
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+  })
+);
 
 // Your error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  res.status(500).json({ error: "Something went wrong!" });
 });
 ```
 
 <Note>
-If KoruAI encounters an error, it will log the error but continue processing the request to ensure your application remains functional.
+  If KoruAI encounters an error, it will log the error but continue processing
+  the request to ensure your application remains functional.
 </Note>
 
 ## Testing Your Integration
@@ -217,7 +232,7 @@ curl -X GET http://localhost:3000/api/test
 
 ### 2. Check Dashboard
 
-Visit your [KoruAI Dashboard](https://koruai.com/dashboard) to verify that requests are being recorded.
+Visit your [KoruAI Dashboard](https://getkoru.ai/dashboard) to verify that requests are being recorded.
 
 ### 3. Monitor Logs
 
@@ -225,8 +240,8 @@ KoruAI provides helpful logs during development:
 
 ```javascript
 // Enable debug logging in development
-if (process.env.NODE_ENV === 'development') {
-  console.log('KoruAI middleware initialized');
+if (process.env.NODE_ENV === "development") {
+  console.log("KoruAI middleware initialized");
 }
 ```
 
@@ -246,11 +261,13 @@ For applications with high request volumes:
 
 ```javascript
 // KoruAI handles high traffic efficiently
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-  blockRealtime: true, // Even real-time blocking has minimal impact
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+    blockRealtime: true, // Even real-time blocking has minimal impact
+  })
+);
 ```
 
 ## Security Best Practices
@@ -259,16 +276,12 @@ app.use(KoruAI({
 
 <CardGroup cols={2}>
   <Card title="✅ Do" icon="check">
-    - Store API keys in environment variables
-    - Use different keys for different environments
-    - Rotate keys regularly
-    - Monitor key usage in the dashboard
+    - Store API keys in environment variables - Use different keys for different
+    environments - Rotate keys regularly - Monitor key usage in the dashboard
   </Card>
   <Card title="❌ Don't" icon="x">
-    - Hardcode API keys in source code
-    - Share keys between team members
-    - Commit keys to version control
-    - Use production keys in development
+    - Hardcode API keys in source code - Share keys between team members -
+    Commit keys to version control - Use production keys in development
   </Card>
 </CardGroup>
 
@@ -284,11 +297,13 @@ const getKoruAIConfig = () => {
 
   // Validate configuration
   if (!config.apiKey || !config.appId) {
-    throw new Error('KoruAI configuration missing. Check your environment variables.');
+    throw new Error(
+      "KoruAI configuration missing. Check your environment variables."
+    );
   }
 
   // Environment-specific settings
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === "production") {
     config.blockRealtime = true;
   }
 
@@ -313,6 +328,7 @@ export default getKoruAIConfig;
     - Verify your credentials in the dashboard
     - Check network connectivity
     - Ensure middleware is added before your routes
+
   </Accordion>
 
   <Accordion title="Application performance issues">
@@ -323,6 +339,7 @@ export default getKoruAIConfig;
     **Solutions:**
     - KoruAI operates asynchronously - contact support if you experience latency
     - Check your network configuration
+
   </Accordion>
 
   <Accordion title="Real-time blocking not working">
@@ -335,6 +352,7 @@ export default getKoruAIConfig;
     - Set `blockRealtime: true` in configuration
     - Create policies in the dashboard after collecting sufficient traffic
     - Ensure you have at least 100 requests per endpoint
+
   </Accordion>
 </AccordionGroup>
 
@@ -349,10 +367,10 @@ const koruaiConfig = {
   appId: process.env.KORUAI_APP_ID,
 };
 
-if (process.env.NODE_ENV === 'development') {
-  console.log('KoruAI Config:', {
-    apiKey: koruaiConfig.apiKey ? '***' : 'missing',
-    appId: koruaiConfig.appId ? '***' : 'missing',
+if (process.env.NODE_ENV === "development") {
+  console.log("KoruAI Config:", {
+    apiKey: koruaiConfig.apiKey ? "***" : "missing",
+    appId: koruaiConfig.appId ? "***" : "missing",
   });
 }
 
@@ -376,11 +394,7 @@ Once you have KoruAI integrated:
   >
     Detailed configuration options and parameters
   </Card>
-  <Card
-    title="Quick Start Guide"
-    icon="rocket"
-    href="/quickstart"
-  >
+  <Card title="Quick Start Guide" icon="rocket" href="/quickstart">
     Get started with KoruAI in 6 simple steps
   </Card>
 </CardGroup>

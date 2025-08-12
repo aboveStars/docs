@@ -1,7 +1,7 @@
 ---
-title: 'Quick Start Guide'
-description: 'Get KoruAI up and running in your Express.js application in 6 simple steps'
-icon: 'rocket'
+title: "Quick Start Guide"
+description: "Get KoruAI up and running in your Express.js application in 6 simple steps"
+icon: "rocket"
 ---
 
 Get your Express.js API secured with KoruAI in just a few minutes. Follow these 6 simple steps to start protecting your application with AI-powered security.
@@ -10,16 +10,20 @@ Get your Express.js API secured with KoruAI in just a few minutes. Follow these 
 
 First, you'll need to create a KoruAI account to get started.
 
-1. Visit [KoruAI Dashboard](https://koruai.com/dashboard)
+1. Visit [KoruAI Dashboard](https://getkoru.ai/dashboard)
 2. Click on **"Sign Up"** to create your account
 3. Complete the registration process
 
 <Frame>
-  <img src="/images/placeholders/create-account.png" alt="Create Account Screenshot" />
+  <img
+    src="/images/placeholders/create-account.png"
+    alt="Create Account Screenshot"
+  />
 </Frame>
 
 <Note>
-  You can sign up using your email address or through GitHub/Google OAuth for faster registration.
+  You can sign up using your email address or through GitHub/Google OAuth for
+  faster registration.
 </Note>
 
 ## Step 2: Create Your Application
@@ -32,15 +36,20 @@ Once logged in, you'll need to create an application to get your API credentials
 4. Click **"Create Application"**
 
 <Frame>
-  <img src="/images/placeholders/create-app.png" alt="Create Application Screenshot" />
+  <img
+    src="/images/placeholders/create-app.png"
+    alt="Create Application Screenshot"
+  />
 </Frame>
 
 After creation, you'll receive:
+
 - **App ID**: Your unique application identifier
 - **API Key**: Your authentication key for the KoruAI service
 
 <Warning>
-  Keep your API key secure and never expose it in client-side code. Store it in environment variables.
+  Keep your API key secure and never expose it in client-side code. Store it in
+  environment variables.
 </Warning>
 
 ## Step 3: Install the SDK
@@ -52,7 +61,8 @@ npm install koruai
 ```
 
 <Tip>
-  The KoruAI SDK is lightweight and has minimal dependencies to keep your application fast.
+  The KoruAI SDK is lightweight and has minimal dependencies to keep your
+  application fast.
 </Tip>
 
 ## Step 4: Integrate KoruAI into Your Express App
@@ -68,10 +78,12 @@ import KoruAI from "koruai";
 const app = express();
 
 // Initialize KoruAI middleware
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+  })
+);
 
 // Your existing routes
 app.get("/api/users", (req, res) => {
@@ -91,11 +103,13 @@ import KoruAI from "koruai";
 const app = express();
 
 // Initialize KoruAI middleware with real-time blocking
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-  blockRealtime: true, // Enable real-time threat blocking
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+    blockRealtime: true, // Enable real-time threat blocking
+  })
+);
 
 // Your existing routes
 app.get("/api/users", (req, res) => {
@@ -126,11 +140,15 @@ KORUAI_APP_ID=your-app-id-here
 </ParamField>
 
 <ParamField path="blockRealtime" type="boolean" default="false">
-  Enable real-time blocking of suspicious requests. When `true`, KoruAI will automatically block requests that match threat patterns.
+  Enable real-time blocking of suspicious requests. When `true`, KoruAI will
+  automatically block requests that match threat patterns.
 </ParamField>
 
 <Frame>
-  <img src="/images/placeholders/integration-code.png" alt="Integration Code Screenshot" />
+  <img
+    src="/images/placeholders/integration-code.png"
+    alt="Integration Code Screenshot"
+  />
 </Frame>
 
 ## Step 5: Generate Traffic for Analysis
@@ -142,13 +160,16 @@ KoruAI needs to analyze your API traffic patterns to create effective security r
 3. Wait for sufficient requests to be collected (recommended: 100+ requests per endpoint)
 
 <Frame>
-  <img src="/images/placeholders/traffic-analysis.png" alt="Traffic Analysis Dashboard" />
+  <img
+    src="/images/placeholders/traffic-analysis.png"
+    alt="Traffic Analysis Dashboard"
+  />
 </Frame>
 
 <Info>
-  **How much traffic do I need?**
-  
-  KoruAI works best with at least 100 requests per endpoint. The more diverse and realistic traffic you have, the better the AI can understand your API patterns and create accurate security rules.
+  **How much traffic do I need?** KoruAI works best with at least 100 requests
+  per endpoint. The more diverse and realistic traffic you have, the better the
+  AI can understand your API patterns and create accurate security rules.
 </Info>
 
 ### Monitor Your Traffic
@@ -169,7 +190,10 @@ Once you have sufficient traffic data, create AI-powered security policies:
 4. Wait for the AI to analyze your traffic and generate custom rules
 
 <Frame>
-  <img src="/images/placeholders/create-policies.png" alt="Create Policies Screenshot" />
+  <img
+    src="/images/placeholders/create-policies.png"
+    alt="Create Policies Screenshot"
+  />
 </Frame>
 
 The policy creation process includes:
@@ -180,7 +204,8 @@ The policy creation process includes:
 - **Deployment**: Active protection begins
 
 <Success>
-  🎉 **You're all set!** Your Express.js application is now protected by KoruAI's AI-powered security with 0ms latency impact.
+  🎉 **You're all set!** Your Express.js application is now protected by
+  KoruAI's AI-powered security with 0ms latency impact.
 </Success>
 
 ## What Happens Next?
@@ -191,7 +216,7 @@ Once your policies are active, KoruAI will:
 ✅ **Detect anomalous behavior** using your custom AI rules  
 ✅ **Block suspicious requests** (if `blockRealtime` is enabled)  
 ✅ **Provide detailed analytics** in your dashboard  
-✅ **Automatically adapt** to new endpoints and patterns  
+✅ **Automatically adapt** to new endpoints and patterns
 
 ## Verification
 
@@ -202,17 +227,16 @@ To verify everything is working correctly:
 3. Monitor the analytics for any detected anomalies
 
 <Frame>
-  <img src="/images/placeholders/dashboard-overview.png" alt="Dashboard Overview Screenshot" />
+  <img
+    src="/images/placeholders/dashboard-overview.png"
+    alt="Dashboard Overview Screenshot"
+  />
 </Frame>
 
 ## Need Help?
 
 <CardGroup cols={2}>
-  <Card
-    title="Integration Guide"
-    icon="code"
-    href="/integration/setup"
-  >
+  <Card title="Integration Guide" icon="code" href="/integration/setup">
     Detailed integration instructions and advanced configuration
   </Card>
   <Card
@@ -222,18 +246,10 @@ To verify everything is working correctly:
   >
     Complete configuration options and parameters
   </Card>
-  <Card
-    title="Support"
-    icon="envelope"
-    href="mailto:support@koruai.com"
-  >
+  <Card title="Support" icon="envelope" href="mailto:support@getkoru.ai">
     Get help from our technical support team
   </Card>
-  <Card
-    title="GitHub"
-    icon="github"
-    href="https://github.com/koruai"
-  >
+  <Card title="GitHub" icon="github" href="https://github.com/koruai">
     View source code and report issues
   </Card>
 </CardGroup>
@@ -245,9 +261,11 @@ To verify everything is working correctly:
     Make sure you have sufficient traffic (100+ requests recommended). Check that your API key and App ID are correct, and verify that requests are showing up in your dashboard.
   </Accordion>
 
-  <Accordion title="I'm seeing authentication errors">
-    Double-check your API key and App ID in your environment variables. Make sure they match exactly what's shown in your KoruAI dashboard.
-  </Accordion>
+{" "}
+<Accordion title="I'm seeing authentication errors">
+  Double-check your API key and App ID in your environment variables. Make sure
+  they match exactly what's shown in your KoruAI dashboard.
+</Accordion>
 
   <Accordion title="Real-time blocking isn't working">
     Ensure you've set `blockRealtime: true` in your KoruAI configuration and that you have active policies created for your endpoints.

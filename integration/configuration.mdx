@@ -1,7 +1,7 @@
 ---
-title: 'Configuration Reference'
-description: 'Complete reference for KoruAI configuration options and parameters'
-icon: 'settings'
+title: "Configuration Reference"
+description: "Complete reference for KoruAI configuration options and parameters"
+icon: "settings"
 ---
 
 This page provides a comprehensive reference for all KoruAI configuration options, environment variables, and advanced settings.
@@ -13,16 +13,13 @@ The KoruAI middleware accepts a configuration object with the following paramete
 ### Required Parameters
 
 <ParamField path="apiKey" type="string" required>
-  Your KoruAI API key for authentication with KoruAI servers.
-  
-  **Example:** `"koru_api_1234567890abcdef"`
-  
+  Your KoruAI API key for authentication with KoruAI servers. **Example:**
+  `"koru_api_1234567890abcdef"`
   <Warning>Keep this secret and never expose it in client-side code.</Warning>
 </ParamField>
 
 <ParamField path="appId" type="string" required>
   Your application ID for identifying your app in the KoruAI system.
-  
   **Example:** `"app_9876543210fedcba"`
 </ParamField>
 
@@ -63,7 +60,7 @@ KORUAI_APP_ID=your-app-id-here
 NODE_ENV=production
 
 # Custom KoruAI server endpoint (for enterprise customers)
-KORUAI_ENDPOINT=https://custom.koruai.com
+KORUAI_ENDPOINT=https://custom.getkoru.ai
 
 # Debug logging (development only)
 KORUAI_DEBUG=true
@@ -78,10 +75,12 @@ The minimal configuration required to get started:
 ```javascript
 import KoruAI from "koruai";
 
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+  })
+);
 ```
 
 ### Production Configuration
@@ -99,7 +98,7 @@ const koruaiConfig = {
 
 // Validate configuration
 if (!koruaiConfig.apiKey || !koruaiConfig.appId) {
-  throw new Error('KoruAI configuration missing. Check environment variables.');
+  throw new Error("KoruAI configuration missing. Check environment variables.");
 }
 
 app.use(KoruAI(koruaiConfig));
@@ -119,19 +118,19 @@ const getKoruAIConfig = () => {
   };
 
   switch (process.env.NODE_ENV) {
-    case 'production':
+    case "production":
       return {
         ...baseConfig,
         blockRealtime: true, // Block threats in production
       };
-    
-    case 'staging':
+
+    case "staging":
       return {
         ...baseConfig,
         blockRealtime: true, // Test blocking in staging
       };
-    
-    case 'development':
+
+    case "development":
     default:
       return {
         ...baseConfig,
@@ -151,12 +150,14 @@ Enable KoruAI only when needed:
 import KoruAI from "koruai";
 
 // Only use KoruAI in non-test environments
-if (process.env.NODE_ENV !== 'test') {
-  app.use(KoruAI({
-    apiKey: process.env.KORUAI_API_KEY,
-    appId: process.env.KORUAI_APP_ID,
-    blockRealtime: process.env.NODE_ENV === 'production',
-  }));
+if (process.env.NODE_ENV !== "test") {
+  app.use(
+    KoruAI({
+      apiKey: process.env.KORUAI_API_KEY,
+      appId: process.env.KORUAI_APP_ID,
+      blockRealtime: process.env.NODE_ENV === "production",
+    })
+  );
 }
 ```
 
@@ -180,15 +181,15 @@ if (process.env.NODE_ENV !== 'test') {
 const getKoruAIConfig = () => {
   // Support for key rotation
   const apiKey = process.env.KORUAI_API_KEY_NEW || process.env.KORUAI_API_KEY;
-  
+
   if (!apiKey) {
-    throw new Error('No KoruAI API key found');
+    throw new Error("No KoruAI API key found");
   }
 
   return {
     apiKey,
     appId: process.env.KORUAI_APP_ID,
-    blockRealtime: process.env.NODE_ENV === 'production',
+    blockRealtime: process.env.NODE_ENV === "production",
   };
 };
 
@@ -223,19 +224,21 @@ When a request is blocked, KoruAI returns:
 Currently, KoruAI uses a standard blocking response. For custom responses, you can implement additional middleware:
 
 ```javascript
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-  blockRealtime: true,
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+    blockRealtime: true,
+  })
+);
 
 // Custom error handling for blocked requests
 app.use((err, req, res, next) => {
   if (res.statusCode === 403) {
     return res.status(403).json({
-      error: 'Request blocked by security policy',
+      error: "Request blocked by security policy",
       timestamp: new Date().toISOString(),
-      requestId: req.headers['x-request-id'],
+      requestId: req.headers["x-request-id"],
     });
   }
   next(err);
@@ -250,11 +253,13 @@ KoruAI is optimized for high-traffic applications:
 
 ```javascript
 // No special configuration needed for high traffic
-app.use(KoruAI({
-  apiKey: process.env.KORUAI_API_KEY,
-  appId: process.env.KORUAI_APP_ID,
-  blockRealtime: true, // Even blocking has minimal performance impact
-}));
+app.use(
+  KoruAI({
+    apiKey: process.env.KORUAI_API_KEY,
+    appId: process.env.KORUAI_APP_ID,
+    blockRealtime: true, // Even blocking has minimal performance impact
+  })
+);
 ```
 
 ### Memory Management
@@ -275,14 +280,18 @@ Enable detailed logging for troubleshooting:
 const koruaiConfig = {
   apiKey: process.env.KORUAI_API_KEY,
   appId: process.env.KORUAI_APP_ID,
-  blockRealtime: process.env.NODE_ENV === 'production',
+  blockRealtime: process.env.NODE_ENV === "production",
 };
 
 // Debug logging in development
-if (process.env.NODE_ENV === 'development') {
-  console.log('KoruAI initialized with config:', {
-    apiKey: koruaiConfig.apiKey ? `${koruaiConfig.apiKey.slice(0, 8)}...` : 'missing',
-    appId: koruaiConfig.appId ? `${koruaiConfig.appId.slice(0, 8)}...` : 'missing',
+if (process.env.NODE_ENV === "development") {
+  console.log("KoruAI initialized with config:", {
+    apiKey: koruaiConfig.apiKey
+      ? `${koruaiConfig.apiKey.slice(0, 8)}...`
+      : "missing",
+    appId: koruaiConfig.appId
+      ? `${koruaiConfig.appId.slice(0, 8)}...`
+      : "missing",
     blockRealtime: koruaiConfig.blockRealtime,
   });
 }
@@ -295,16 +304,16 @@ app.use(KoruAI(koruaiConfig));
 Monitor KoruAI status in your health checks:
 
 ```javascript
-app.get('/health', (req, res) => {
+app.get("/health", (req, res) => {
   const health = {
-    status: 'healthy',
+    status: "healthy",
     timestamp: new Date().toISOString(),
     koruai: {
       configured: !!(process.env.KORUAI_API_KEY && process.env.KORUAI_APP_ID),
-      blocking: process.env.NODE_ENV === 'production',
+      blocking: process.env.NODE_ENV === "production",
     },
   };
-  
+
   res.json(health);
 });
 ```
@@ -318,30 +327,30 @@ Validate your configuration at startup:
 ```javascript
 const validateKoruAIConfig = (config) => {
   const errors = [];
-  
+
   if (!config.apiKey) {
-    errors.push('KORUAI_API_KEY is required');
+    errors.push("KORUAI_API_KEY is required");
   }
-  
+
   if (!config.appId) {
-    errors.push('KORUAI_APP_ID is required');
+    errors.push("KORUAI_APP_ID is required");
   }
-  
-  if (config.apiKey && !config.apiKey.startsWith('koru_')) {
-    errors.push('Invalid API key format');
+
+  if (config.apiKey && !config.apiKey.startsWith("koru_")) {
+    errors.push("Invalid API key format");
   }
-  
+
   if (errors.length > 0) {
-    throw new Error(`KoruAI configuration errors: ${errors.join(', ')}`);
+    throw new Error(`KoruAI configuration errors: ${errors.join(", ")}`);
   }
-  
+
   return true;
 };
 
 const koruaiConfig = {
   apiKey: process.env.KORUAI_API_KEY,
   appId: process.env.KORUAI_APP_ID,
-  blockRealtime: process.env.NODE_ENV === 'production',
+  blockRealtime: process.env.NODE_ENV === "production",
 };
 
 validateKoruAIConfig(koruaiConfig);
@@ -359,7 +368,7 @@ import { KoruAIMiddlewareConfig } from "koruai/types";
 const koruaiConfig: KoruAIMiddlewareConfig = {
   apiKey: process.env.KORUAI_API_KEY!,
   appId: process.env.KORUAI_APP_ID!,
-  blockRealtime: process.env.NODE_ENV === 'production',
+  blockRealtime: process.env.NODE_ENV === "production",
 };
 
 app.use(KoruAI(koruaiConfig));
@@ -371,17 +380,20 @@ app.use(KoruAI(koruaiConfig));
 
 <AccordionGroup>
   <Accordion title="Use environment-specific configurations">
-    Different environments should have different settings. Development should focus on monitoring, while production should enable real-time blocking.
+    Different environments should have different settings. Development should
+    focus on monitoring, while production should enable real-time blocking.
   </Accordion>
-  
+
   <Accordion title="Validate configuration at startup">
-    Always validate your KoruAI configuration during application startup to catch issues early.
+    Always validate your KoruAI configuration during application startup to
+    catch issues early.
   </Accordion>
-  
+
   <Accordion title="Implement graceful degradation">
-    If KoruAI configuration is missing or invalid, decide whether to fail fast or continue without protection.
+    If KoruAI configuration is missing or invalid, decide whether to fail fast
+    or continue without protection.
   </Accordion>
-  
+
   <Accordion title="Monitor configuration changes">
     Log configuration changes and monitor for unexpected behavior after updates.
   </Accordion>
@@ -400,39 +412,29 @@ app.use(KoruAI(koruaiConfig));
 
 <AccordionGroup>
   <Accordion title="Invalid API key format">
-    **Error:** API key validation failed
-    
-    **Solution:** Ensure your API key starts with `koru_` and matches the format from your dashboard
+    **Error:** API key validation failed **Solution:** Ensure your API key
+    starts with `koru_` and matches the format from your dashboard
   </Accordion>
-  
+
   <Accordion title="Missing environment variables">
-    **Error:** Configuration missing or undefined
-    
-    **Solution:** Check that `KORUAI_API_KEY` and `KORUAI_APP_ID` are set in your environment
+    **Error:** Configuration missing or undefined **Solution:** Check that
+    `KORUAI_API_KEY` and `KORUAI_APP_ID` are set in your environment
   </Accordion>
-  
+
   <Accordion title="Real-time blocking not working">
     **Error:** Requests not being blocked despite `blockRealtime: true`
-    
-    **Solution:** Ensure you have created policies in your dashboard and have sufficient training data
+    **Solution:** Ensure you have created policies in your dashboard and have
+    sufficient training data
   </Accordion>
 </AccordionGroup>
 
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card
-    title="Integration Setup"
-    icon="gear"
-    href="/integration/setup"
-  >
+  <Card title="Integration Setup" icon="gear" href="/integration/setup">
     Go back to the setup guide for implementation details
   </Card>
-  <Card
-    title="Quick Start Guide"
-    icon="rocket"
-    href="/quickstart"
-  >
+  <Card title="Quick Start Guide" icon="rocket" href="/quickstart">
     Get started with KoruAI in 6 simple steps
   </Card>
 </CardGroup>
