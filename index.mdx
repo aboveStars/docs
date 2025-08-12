@@ -1,71 +1,123 @@
 ---
-title: Introduction
-description: "Welcome to the home of your new documentation"
+title: 'Welcome to KoruAI'
+description: 'AI-powered API security with 0ms latency impact'
 ---
 
 <img
   className="block dark:hidden"
   src="/images/hero-light.png"
-  alt="Hero Light"
+  alt="KoruAI Hero Light"
 />
 <img
   className="hidden dark:block"
   src="/images/hero-dark.png"
-  alt="Hero Dark"
+  alt="KoruAI Hero Dark"
 />
 
-## Setting up
+## What is KoruAI?
 
-The first step to world-class documentation is setting up your editing environments.
+KoruAI is an AI-powered API security platform that provides **0ms latency** protection for your Express.js applications. Unlike traditional security solutions that add delays to your API responses, KoruAI uses artificial intelligence to generate custom security rules tailored specifically to your API patterns.
+
+## How it works
 
 <CardGroup cols={2}>
   <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
+    title="AI Analysis"
+    icon="brain"
+    href="#ai-analysis"
   >
-    Get your docs set up locally for easy development
+    Our AI analyzes your API traffic patterns to understand your unique endpoints and data structures
   </Card>
   <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
+    title="Custom Rules"
+    icon="shield-check"
+    href="#custom-rules"
   >
-    Preview your changes before you push to make sure they're perfect
+    Generate specific protection rules tailored to YOUR API, not generic one-size-fits-all solutions
+  </Card>
+  <Card
+    title="Zero Latency"
+    icon="bolt"
+    href="#zero-latency"
+  >
+    Static rule checking means 0ms impact on your API performance
+  </Card>
+  <Card
+    title="Real-time Protection"
+    icon="eye"
+    href="#real-time-protection"
+  >
+    Monitor and block threats in real-time with 99.9% accuracy
   </Card>
 </CardGroup>
 
-## Make it yours
+## Key Features
 
-Update your docs to your brand and add valuable content for the best user conversion.
+### 🚀 Zero Performance Impact
+- **0ms latency** - No delays added to your API responses
+- Asynchronous monitoring that doesn't affect your application flow
+- Designed for high-traffic APIs handling millions of requests
+
+### 🤖 AI-Powered Intelligence
+- Custom rules generated specifically for your API patterns
+- Automatic adaptation to new endpoints
+- 99.9% accuracy with minimal false positives
+
+### 🛡️ Comprehensive Security
+- Real-time anomaly detection
+- Suspicious request blocking
+- Detailed security analytics and reporting
+
+### 🔧 Easy Integration
+- Simple Express.js middleware integration
+- One-line setup with your existing code
+- No infrastructure changes required
+
+## Getting Started
+
+Ready to secure your API with KoruAI? Follow our [quickstart guide](/quickstart) to get up and running in minutes.
+
+<Card
+  title="Quick Start Guide"
+  icon="rocket"
+  href="/quickstart"
+>
+  Learn how to integrate KoruAI into your Express.js application in 6 simple steps
+</Card>
+
+## Why Choose KoruAI?
+
+<AccordionGroup>
+  <Accordion title="How does KoruAI achieve 0ms latency?">
+    KoruAI uses AI to generate specific static rules tailored to your API. This allows us to check each request for anomalies almost instantly, without the delays of traditional synchronous security processing. Your API performance remains unchanged while still receiving robust protection.
+  </Accordion>
+
+  <Accordion title="What makes it different from other security solutions?">
+    Traditional security uses the same ruleset for every API, causing slowdowns (5-50ms latency) and false positives. KoruAI's AI learns your specific API behavior and creates custom rules with 0ms overhead and 99.9% accuracy for your unique endpoints.
+  </Accordion>
+
+  <Accordion title="How quickly does the AI adapt to changes?">
+    KoruAI's AI automatically detects new endpoints and begins learning their patterns immediately. Within minutes, your new endpoints have tailored protection without any manual configuration or security updates.
+  </Accordion>
+</AccordionGroup>
+
+## Support
+
+Need help getting started or have questions? We're here to help!
 
 <CardGroup cols={2}>
   <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
+    title="Documentation"
+    icon="book"
+    href="/quickstart"
   >
-    Customize your docs to your company's colors and brands
+    Comprehensive guides and integration instructions
   </Card>
   <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
+    title="Support"
+    icon="envelope"
+    href="mailto:support@koruai.com"
   >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/content/components/accordions"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
+    Get help from our team
   </Card>
 </CardGroup>

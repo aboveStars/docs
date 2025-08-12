@@ -1,97 +1,255 @@
 ---
-title: 'Quickstart'
-description: 'Start building awesome documentation in under 5 minutes'
+title: 'Quick Start Guide'
+description: 'Get KoruAI up and running in your Express.js application in 6 simple steps'
+icon: 'rocket'
 ---
 
-## Setup your development
+Get your Express.js API secured with KoruAI in just a few minutes. Follow these 6 simple steps to start protecting your application with AI-powered security.
 
-Learn how to update your docs locally and deploy them to the public.
+## Step 1: Create Your Account
 
-### Edit and preview
+First, you'll need to create a KoruAI account to get started.
 
-<AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 
-    1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `docs.json` is): ``` mintlify dev ```
-    <Note>
-      If you’re currently using the legacy ```mint.json``` configuration file, please update the Mintlify CLI:
+1. Visit [KoruAI Dashboard](https://koruai.com/dashboard)
+2. Click on **"Sign Up"** to create your account
+3. Complete the registration process
 
+<Frame>
+  <img src="/images/placeholders/create-account.png" alt="Create Account Screenshot" />
+</Frame>
 
-      ```npm i -g mintlify@latest```
-      And run the new upgrade command in your docs repository:
+<Note>
+  You can sign up using your email address or through GitHub/Google OAuth for faster registration.
+</Note>
 
-      ```mintlify upgrade```
-      You should now be using the new ```docs.json``` configuration file. Feel free to delete the ```mint.json``` file from your repository.
-    </Note>
-  </Accordion>
-</AccordionGroup>
+## Step 2: Create Your Application
 
-### Deploy your changes
+Once logged in, you'll need to create an application to get your API credentials.
 
-<AccordionGroup>
+1. Navigate to your dashboard
+2. Click **"Create New App"** button
+3. Enter your application name
+4. Click **"Create Application"**
 
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
-</Accordion>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
-</Accordion>
+<Frame>
+  <img src="/images/placeholders/create-app.png" alt="Create Application Screenshot" />
+</Frame>
 
-</AccordionGroup>
+After creation, you'll receive:
+- **App ID**: Your unique application identifier
+- **API Key**: Your authentication key for the KoruAI service
 
-## Update your docs
+<Warning>
+  Keep your API key secure and never expose it in client-side code. Store it in environment variables.
+</Warning>
 
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
+## Step 3: Install the SDK
 
-<CardGroup>
+Install the KoruAI Express.js SDK in your project:
 
-<Card title="Add Content With MDX" icon="file" href="/essentials/markdown">
-  Add content to your docs with MDX syntax.
-</Card>
+```bash
+npm install koruai
+```
 
-<Card
-  title="Add Code Blocks"
-  icon="square-code"
-  href="/essentials/code"
->
-  Add code directly to your docs with syntax highlighting.
-</Card>
+<Tip>
+  The KoruAI SDK is lightweight and has minimal dependencies to keep your application fast.
+</Tip>
 
-<Card
-  title="Add Images"
-  icon="image"
-  href="/essentials/images"
->
-  Add images to your docs to make them more engaging.
-</Card>
+## Step 4: Integrate KoruAI into Your Express App
 
-<Card
-  title="Add Custom Components"
-  icon="puzzle-piece"
-  href="/essentials/reusable-snippets"
->
-  Add templates to your docs to make them more reusable.
-</Card>
+Add KoruAI middleware to your Express.js application:
 
+<CodeGroup>
+
+```javascript Basic Integration
+import express from "express";
+import KoruAI from "koruai";
+
+const app = express();
+
+// Initialize KoruAI middleware
+app.use(KoruAI({
+  apiKey: process.env.KORUAI_API_KEY,
+  appId: process.env.KORUAI_APP_ID,
+}));
+
+// Your existing routes
+app.get("/api/users", (req, res) => {
+  // Your application logic here
+  res.json({ users: [] });
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000 with KoruAI protection");
+});
+```
+
+```javascript With Real-time Blocking
+import express from "express";
+import KoruAI from "koruai";
+
+const app = express();
+
+// Initialize KoruAI middleware with real-time blocking
+app.use(KoruAI({
+  apiKey: process.env.KORUAI_API_KEY,
+  appId: process.env.KORUAI_APP_ID,
+  blockRealtime: true, // Enable real-time threat blocking
+}));
+
+// Your existing routes
+app.get("/api/users", (req, res) => {
+  res.json({ users: [] });
+});
+
+app.listen(3000, () => {
+  console.log("Server running with KoruAI real-time protection");
+});
+```
+
+```bash Environment Variables
+# Add to your .env file
+KORUAI_API_KEY=your-api-key-here
+KORUAI_APP_ID=your-app-id-here
+```
+
+</CodeGroup>
+
+### Configuration Options
+
+<ParamField path="apiKey" type="string" required>
+  Your KoruAI API key for authentication
+</ParamField>
+
+<ParamField path="appId" type="string" required>
+  Your application ID from the KoruAI dashboard
+</ParamField>
+
+<ParamField path="blockRealtime" type="boolean" default="false">
+  Enable real-time blocking of suspicious requests. When `true`, KoruAI will automatically block requests that match threat patterns.
+</ParamField>
+
+<Frame>
+  <img src="/images/placeholders/integration-code.png" alt="Integration Code Screenshot" />
+</Frame>
+
+## Step 5: Generate Traffic for Analysis
+
+KoruAI needs to analyze your API traffic patterns to create effective security rules.
+
+1. Deploy your application with KoruAI integrated
+2. Generate normal user traffic to your API endpoints
+3. Wait for sufficient requests to be collected (recommended: 100+ requests per endpoint)
+
+<Frame>
+  <img src="/images/placeholders/traffic-analysis.png" alt="Traffic Analysis Dashboard" />
+</Frame>
+
+<Info>
+  **How much traffic do I need?**
+  
+  KoruAI works best with at least 100 requests per endpoint. The more diverse and realistic traffic you have, the better the AI can understand your API patterns and create accurate security rules.
+</Info>
+
+### Monitor Your Traffic
+
+You can monitor incoming requests in your KoruAI dashboard:
+
+- **Total Requests**: Number of requests processed
+- **Unique Endpoints**: API endpoints discovered
+- **Request Patterns**: Traffic patterns being learned
+
+## Step 6: Create Security Policies
+
+Once you have sufficient traffic data, create AI-powered security policies:
+
+1. Go to your application dashboard
+2. Navigate to the **"Policies"** section
+3. Click **"Create Policies"** button
+4. Wait for the AI to analyze your traffic and generate custom rules
+
+<Frame>
+  <img src="/images/placeholders/create-policies.png" alt="Create Policies Screenshot" />
+</Frame>
+
+The policy creation process includes:
+
+- **Traffic Analysis**: AI analyzes your request patterns
+- **Rule Generation**: Custom security rules are created for your specific API
+- **Validation**: Rules are tested against your traffic patterns
+- **Deployment**: Active protection begins
+
+<Success>
+  🎉 **You're all set!** Your Express.js application is now protected by KoruAI's AI-powered security with 0ms latency impact.
+</Success>
+
+## What Happens Next?
+
+Once your policies are active, KoruAI will:
+
+✅ **Monitor all incoming requests** with zero performance impact  
+✅ **Detect anomalous behavior** using your custom AI rules  
+✅ **Block suspicious requests** (if `blockRealtime` is enabled)  
+✅ **Provide detailed analytics** in your dashboard  
+✅ **Automatically adapt** to new endpoints and patterns  
+
+## Verification
+
+To verify everything is working correctly:
+
+1. Check your dashboard for incoming request data
+2. Look for the policy creation status
+3. Monitor the analytics for any detected anomalies
+
+<Frame>
+  <img src="/images/placeholders/dashboard-overview.png" alt="Dashboard Overview Screenshot" />
+</Frame>
+
+## Need Help?
+
+<CardGroup cols={2}>
+  <Card
+    title="Integration Guide"
+    icon="code"
+    href="/integration/setup"
+  >
+    Detailed integration instructions and advanced configuration
+  </Card>
+  <Card
+    title="Configuration Guide"
+    icon="gear"
+    href="/integration/configuration"
+  >
+    Complete configuration options and parameters
+  </Card>
+  <Card
+    title="Support"
+    icon="envelope"
+    href="mailto:support@koruai.com"
+  >
+    Get help from our technical support team
+  </Card>
+  <Card
+    title="GitHub"
+    icon="github"
+    href="https://github.com/koruai"
+  >
+    View source code and report issues
+  </Card>
 </CardGroup>
+
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="My policies aren't being created">
+    Make sure you have sufficient traffic (100+ requests recommended). Check that your API key and App ID are correct, and verify that requests are showing up in your dashboard.
+  </Accordion>
+
+  <Accordion title="I'm seeing authentication errors">
+    Double-check your API key and App ID in your environment variables. Make sure they match exactly what's shown in your KoruAI dashboard.
+  </Accordion>
+
+  <Accordion title="Real-time blocking isn't working">
+    Ensure you've set `blockRealtime: true` in your KoruAI configuration and that you have active policies created for your endpoints.
+  </Accordion>
+</AccordionGroup>
